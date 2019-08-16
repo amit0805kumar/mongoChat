@@ -7,9 +7,13 @@ const path = require('path');
 
 const mongo = require('mongodb').MongoClient;
 
+// const io = require('socket.io').listen(4000).sockets;
 app.get('/', function (request, response) {
     response.sendFile(path.join(__dirname + '/index.html'));
 });
+
+
+
 
 
 
@@ -80,7 +84,7 @@ mongo.connect('mongodb+srv://amit:amit@devconnector-dxwk4.mongodb.net/test?retry
     });
 });
 
-const PORT = 5000;
+const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
     console.log(`Server started on ${PORT}`);
 });
