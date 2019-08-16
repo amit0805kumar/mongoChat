@@ -1,5 +1,6 @@
 const mongo = require('mongodb').MongoClient;
-const clientL = require('socket.io').listen(4000).sockets;
+const PORT = process.env.PORT || 5000;
+const clientL = require('socket.io').listen(PORT).sockets;
 
 // Connect to mongo
 mongo.connect('mongodb+srv://amit:amit@devconnector-dxwk4.mongodb.net/test?retryWrites=true&w=majority', {
