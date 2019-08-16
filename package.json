@@ -1,0 +1,24 @@
+{
+  "name": "mongochat",
+  "version": "1.0.0",
+  "description": "Chatting app using Socket.io",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/amit0805kumar/mongoChat.git"
+  },
+  "author": "Amit Kumar",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/amit0805kumar/mongoChat/issues"
+  },
+  "homepage": "https://github.com/amit0805kumar/mongoChat#readme",
+  "dependencies": {
+    "mongodb": "^3.3.0",
+    "nodemon": "^1.19.1",
+    "socket.io": "^2.2.0"
+  }
+}
