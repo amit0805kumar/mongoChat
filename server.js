@@ -1,6 +1,17 @@
+
+const express = require('express');
+var path = require('path');
 const mongo = require('mongodb').MongoClient;
-const PORT = process.env.PORT || 5000;
-const clientL = require('socket.io').listen(PORT).sockets;
+
+const clientL = require('socket.io').listen(4000).sockets;
+
+const app = express();
+app.get('/', function (request, response) {
+    response.sendFile(path.join(__dirname + '/index.html'));
+});
+app.use(express.json({
+    extended: false
+}));
 
 // Connect to mongo
 mongo.connect('mongodb+srv://amit:amit@devconnector-dxwk4.mongodb.net/test?retryWrites=true&w=majority', {
@@ -65,4 +76,9 @@ mongo.connect('mongodb+srv://amit:amit@devconnector-dxwk4.mongodb.net/test?retry
             });
         });
     });
+});
+
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => {
+    console.log(`Server started on ${PORT}`);
 });
