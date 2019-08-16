@@ -1,17 +1,19 @@
+var express = require('express');
+var app = express();
+var http = require('http').createServer(app);
+const io = require('socket.io')(http);
+const path = require('path');
 
-const express = require('express');
-var path = require('path');
+
 const mongo = require('mongodb').MongoClient;
 
-const clientL = require('socket.io').listen(4000).sockets;
-
-const app = express();
 app.get('/', function (request, response) {
     response.sendFile(path.join(__dirname + '/index.html'));
 });
-app.use(express.json({
-    extended: false
-}));
+
+
+
+
 
 // Connect to mongo
 mongo.connect('mongodb+srv://amit:amit@devconnector-dxwk4.mongodb.net/test?retryWrites=true&w=majority', {
@@ -26,7 +28,7 @@ mongo.connect('mongodb+srv://amit:amit@devconnector-dxwk4.mongodb.net/test?retry
     console.log('MongoDB connected...');
 
     // Connect to Socket.io
-    clientL.on('connection', function (socket) {
+    io.on('connection', function (socket) {
         let chat = db.collection('chats');
 
         // Create function to send status
@@ -56,7 +58,7 @@ mongo.connect('mongodb+srv://amit:amit@devconnector-dxwk4.mongodb.net/test?retry
             } else {
                 // Insert message
                 chat.insertOne({ name: name, message: message }, function () {
-                    clientL.emit('output', [data]);
+                    io.emit('output', [data]);
 
                     // Send status object
                     sendStatus({
@@ -78,7 +80,9 @@ mongo.connect('mongodb+srv://amit:amit@devconnector-dxwk4.mongodb.net/test?retry
     });
 });
 
-const PORT = process.env.PORT || 5000;
+const PORT = 5000;
 app.listen(PORT, () => {
     console.log(`Server started on ${PORT}`);
 });
+
+

@@ -70,7 +70,7 @@
 
 
             //Connect to socket.io
-            var socket = io.connect(window.location.hostname + ":" + 4000);
+            var socket = io.connect("https://gangchat12.herokuapp.com");
             // Check for connection
             if (socket !== undefined) {
                 console.log('Connected to socket: ');
