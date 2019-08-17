@@ -14,10 +14,20 @@
     <style>
         .card {
             height: 300px;
+            overflow-y: scroll;
         }
 
         .send {
             width: 100%;
+        }
+
+        h5,
+        p {
+            display: inline-block;
+        }
+
+        p {
+            margin-left: 3px;
         }
     </style>
 </head>
@@ -87,7 +97,14 @@
                             // Build out message
                             var message = document.createElement('div');
                             message.setAttribute('class', 'chat-message');
-                            message.textContent = data[x].name + ': ' + data[x].message;
+                            var name = document.createElement('h5');
+                            name.textContent = data[x].name + ": ";
+                            var text = document.createElement('p');
+                            text.textContent = data[x].message;
+
+                            message.appendChild(name);
+                            message.appendChild(text);
+
                             messages.appendChild(message);
                             messages.insertBefore(message, messages.firstChild);
                         }

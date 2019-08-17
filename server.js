@@ -34,7 +34,7 @@ mongo.connect('mongodb+srv://amit:amit@devconnector-dxwk4.mongodb.net/test?retry
 
         // Create function to send status
         sendStatus = function (s) {
-            socket.emit('status', s);
+            io.emit('status', s);
         }
 
         // Get chats from mongo collection
@@ -59,7 +59,7 @@ mongo.connect('mongodb+srv://amit:amit@devconnector-dxwk4.mongodb.net/test?retry
             } else {
                 // Insert message
                 chat.insertOne({ name: name, message: message }, function () {
-                    socket.emit('output', [data]);
+                    io.emit('output', [data]);
 
                     // Send status object
                     sendStatus({
