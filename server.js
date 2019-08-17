@@ -1,21 +1,18 @@
 var express = require('express');
 var app = express();
-var http = require('http').createServer(app);
-const io = require('socket.io')(http);
+var http = require('http').Server(app);
+const io = require('socket.io').listen(http);
+
+
 const path = require('path');
 
 
 const mongo = require('mongodb').MongoClient;
 
-// const io = require('socket.io').listen(4000).sockets;
+
 app.get('/', function (request, response) {
     response.sendFile(path.join(__dirname + '/index.html'));
 });
-
-
-
-
-
 
 
 
@@ -62,7 +59,7 @@ mongo.connect('mongodb+srv://amit:amit@devconnector-dxwk4.mongodb.net/test?retry
             } else {
                 // Insert message
                 chat.insertOne({ name: name, message: message }, function () {
-                    io.emit('output', [data]);
+                    socket.emit('output', [data]);
 
                     // Send status object
                     sendStatus({
@@ -85,7 +82,7 @@ mongo.connect('mongodb+srv://amit:amit@devconnector-dxwk4.mongodb.net/test?retry
 });
 
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
+http.listen(PORT, () => {
     console.log(`Server started on ${PORT}`);
 });
 
